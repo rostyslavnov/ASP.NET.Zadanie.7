@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ASP.NET.Models.Superhero>
+
+<h1>Lista Superbohaterów</h1>
+<a href="/Superheroes/Dodaj">Dodaj Superbohatera</a>
+<table>
+    <thead>
+    <tr>
+        <th>Nazwa</th>
+        <th>Pełne imię</th>
+        <th>Waga</th>
+        <th>Wzrost</th>
+        <th>Akcje</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var bohater in Model)
+    {
+    <tr>
+        <td>@(bohater.superhero_name ?? "Brak nazwy")</td>
+        <td>@(bohater.full_name ?? "Brak pełnego imienia")</td>
+        <td>@(bohater.weight_kg ?? 0) kg</td>
+        <td>@(bohater.height_cm ?? 0) cm</td>
+        <td>
+            <a href="/Superheroes/Szczegoly/@bohater.Id">Szczegóły</a> |
+            <a href="/Superheroes/Usun/@bohater.Id">Usuń</a>
+        </td>
+    </tr>
+    }
+    </tbody>
+</table>

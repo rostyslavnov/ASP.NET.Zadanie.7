@@ -1,0 +1,8 @@
+﻿@model ASP.NET.Models.Superhero
+
+<h1>Szczegóły Superbohatera</h1>
+<p><strong>Nazwa Superbohatera:</strong> @(Model.superhero_name ?? "Brak nazwy")</p>
+<p><strong>Pełne imię:</strong> @(Model.full_name ?? "Brak pełnego imienia")</p>
+<p><strong>Waga:</strong> @(Model.weight_kg ?? 0) kg</p>
+<p><strong>Wzrost:</strong> @(Model.height_cm ?? 0) cm</p>
+<a href="/Superheroes/Lista">Powrót do listy</a>
