@@ -1,14 +1,23 @@
-﻿@model ASP.NET.Models.Superhero
+﻿@model Superhero
 
-<h1>Dodaj Superbohatera</h1>
-<form method="post" action="/Superheroes/Dodaj">
-    <label for="superhero_name">Nazwa Superbohatera:</label>
-    <input type="text" id="superhero_name" name="superhero_name" value="@Model?.superhero_name" required />
-    <label for="full_name">Pełne imię:</label>
-    <input type="text" id="full_name" name="full_name" value="@Model?.full_name" required />
-    <label for="weight_kg">Waga:</label>
-    <input type="number" id="weight_kg" name="weight_kg" value="@Model?.weight_kg" required />
-    <label for="height_cm">Wzrost:</label>
-    <input type="number" id="height_cm" name="height_cm" required value="@Model?.height_cm" />
-    <button type="submit">Dodaj</button>
+<h2>Dodaj Nowego Superbohatera</h2>
+
+<form asp-action="Dodaj" method="post">
+    <div>
+        <label for="superhero_name">Nazwa Superbohatera:</label>
+        <input asp-for="superhero_name" class="form-control" />
+    </div>
+    <div>
+        <label for="full_name">Pełne Imię:</label>
+        <input asp-for="full_name" class="form-control" />
+    </div>
+    <div>
+        <label for="weight_kg">Waga (kg):</label>
+        <input asp-for="weight_kg" class="form-control" />
+    </div>
+    <div>
+        <label for="height_cm">Wzrost (cm):</label>
+        <input asp-for="height_cm" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Zapisz</button>
 </form>

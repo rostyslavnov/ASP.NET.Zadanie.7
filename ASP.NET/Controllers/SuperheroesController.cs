@@ -13,7 +13,8 @@ namespace ASP.NET.Controllers
         {
             _context = context;
         }
-
+        
+        // Lista superbohaterów z paginacją
         public IActionResult Lista(int page = 1, int pageSize = 20)
         {
             var totalItems = _context.Superheroes.Count();
@@ -27,8 +28,8 @@ namespace ASP.NET.Controllers
 
             foreach (var hero in superheroes)
             {
-                hero.superhero_name ??= "Unknown Name";
-                hero.full_name ??= "Unknown Full Name";
+                hero.superhero_name ??= "Nieznana nazwa";
+                hero.full_name ??= "Nieznane pełne imię";
                 hero.weight_kg ??= 0;
                 hero.height_cm ??= 0;
             }
@@ -42,13 +43,14 @@ namespace ASP.NET.Controllers
 
             return View(viewModel);
         }
-
+        
         public IActionResult Dodaj()
         {
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Dodaj(Superhero superhero)
         {
             if (ModelState.IsValid)
@@ -57,9 +59,10 @@ namespace ASP.NET.Controllers
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Lista));
             }
+
             return View(superhero);
         }
-
+        
         public IActionResult Szczegoly(int id)
         {
             var superhero = _context.Superheroes.FirstOrDefault(s => s.Id == id);
@@ -68,16 +71,36 @@ namespace ASP.NET.Controllers
 
             return View(superhero);
         }
-
-        public IActionResult Usun(int id)
+        
+        public IActionResult Edytuj(int id)
         {
             var superhero = _context.Superheroes.FirstOrDefault(s => s.Id == id);
             if (superhero == null)
                 return NotFound();
 
-            _context.Superheroes.Remove(superhero);
-            _context.SaveChanges();
-            return RedirectToAction(nameof(Lista));
+            return View(superhero);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edytuj(Superhero superhero)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingHero = _context.Superheroes.FirstOrDefault(s => s.Id == superhero.Id);
+                if (existingHero == null)
+                    return NotFound();
+
+                existingHero.superhero_name = superhero.superhero_name;
+                existingHero.full_name = superhero.full_name;
+                existingHero.weight_kg = superhero.weight_kg;
+                existingHero.height_cm = superhero.height_cm;
+
+                _context.SaveChanges();
+                return RedirectToAction(nameof(Lista));
+            }
+
+            return View(superhero);
         }
     }
 }

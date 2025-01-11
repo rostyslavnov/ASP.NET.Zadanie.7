@@ -7,13 +7,18 @@ Layout = "~/Views/Shared/_Layout.cshtml";
 
 <h1>Lista Superbohaterów</h1>
 
-<table class="table">
+<p>
+    <a asp-action="Dodaj" class="btn btn-primary">Dodaj Nowego Superbohatera</a>
+</p>
+
+<table class="table table-striped">
     <thead>
     <tr>
         <th>Imię Superbohatera</th>
         <th>Pełne Imię</th>
         <th>Waga (kg)</th>
         <th>Wzrost (cm)</th>
+        <th>Akcje</th>
     </tr>
     </thead>
     <tbody>
@@ -24,6 +29,10 @@ Layout = "~/Views/Shared/_Layout.cshtml";
         <td>@hero.full_name</td>
         <td>@hero.weight_kg</td>
         <td>@hero.height_cm</td>
+        <td>
+            <a asp-action="Szczegoly" asp-route-id="@hero.Id" class="btn btn-info">Szczegóły</a>
+            <a asp-action="Edytuj" asp-route-id="@hero.Id" class="btn btn-warning">Edytuj</a>
+        </td>
     </tr>
     }
     </tbody>
@@ -44,9 +53,12 @@ Layout = "~/Views/Shared/_Layout.cshtml";
         </li>
         }
 
-        <li class="page-item active">
-            <span class="page-link">@Model.CurrentPage</span>
+        @for (var i = 1; i <= Model.TotalPages; i++)
+        {
+        <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+            <a class="page-link" asp-action="Lista" asp-route-page="@i">@i</a>
         </li>
+        }
 
         @if (Model.HasNextPage)
         {

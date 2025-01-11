@@ -11,6 +11,8 @@ namespace ASP.NET.Data
         }
 
         public DbSet<Superhero> Superheroes { get; set; }
+        
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
