@@ -14,7 +14,6 @@ namespace ASP.NET.Controllers
             _context = context;
         }
         
-        // Lista superbohaterów z paginacją
         public IActionResult Lista(int page = 1, int pageSize = 20)
         {
             var totalItems = _context.Superheroes.Count();
@@ -72,6 +71,7 @@ namespace ASP.NET.Controllers
             return View(superhero);
         }
         
+
         public IActionResult Edytuj(int id)
         {
             var superhero = _context.Superheroes.FirstOrDefault(s => s.Id == id);

@@ -11,14 +11,14 @@ namespace ASP.NET.Data
         }
 
         public DbSet<Superhero> Superheroes { get; set; }
-        
-
+        public DbSet<Superpower> Superpowers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Superhero>().ToTable("superhero");
+            modelBuilder.Entity<Superpower>().ToTable("superpower");
         }
     }
 }

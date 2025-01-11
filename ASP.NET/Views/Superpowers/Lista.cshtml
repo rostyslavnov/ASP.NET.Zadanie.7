@@ -1,37 +1,30 @@
-﻿@model ASP.NET.Models.PaginationViewModel<ASP.NET.Models.Superhero>
+﻿@model PaginationViewModel<Superpower>
 
 @{
-    ViewData["Title"] = "Lista Superbohaterów";
+    ViewData["Title"] = "Lista Supermocy";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Lista Superbohaterów</h1>
+<h1>Lista Supermocy</h1>
 
 <p>
-    <a asp-action="Dodaj" class="btn btn-primary">Dodaj Nowego Superbohatera</a>
+    <a asp-action="Dodaj" class="btn btn-primary">Dodaj Nową Supermoc</a>
 </p>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Imię Superbohatera</th>
-            <th>Pełne Imię</th>
-            <th>Waga (kg)</th>
-            <th>Wzrost (cm)</th>
+            <th>Nazwa Supermocy</th>
             <th>Akcje</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var hero in Model.Items)
+        @foreach (var item in Model.Items)
         {
             <tr>
-                <td>@hero.superhero_name</td>
-                <td>@hero.full_name</td>
-                <td>@hero.weight_kg</td>
-                <td>@hero.height_cm</td>
+                <td>@item.power_name</td>
                 <td>
-                    <a asp-action="Szczegoly" asp-route-id="@hero.Id" class="btn btn-info">Szczegóły</a>
-                    <a asp-action="Edytuj" asp-route-id="@hero.Id" class="btn btn-warning">Edytuj</a>
+                    <a asp-action="Szczegoly" asp-route-id="@item.Id" class="btn btn-info">Szczegóły</a>
                 </td>
             </tr>
         }
