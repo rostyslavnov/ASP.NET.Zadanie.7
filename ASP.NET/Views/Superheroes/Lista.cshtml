@@ -1,30 +1,64 @@
-﻿@model IEnumerable<ASP.NET.Models.Superhero>
+﻿@model ASP.NET.Models.PaginationViewModel<ASP.NET.Models.Superhero>
+
+@{
+ViewData["Title"] = "Lista Superbohaterów";
+Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <h1>Lista Superbohaterów</h1>
-<a href="/Superheroes/Dodaj">Dodaj Superbohatera</a>
-<table>
+
+<table class="table">
     <thead>
     <tr>
-        <th>Nazwa</th>
-        <th>Pełne imię</th>
-        <th>Waga</th>
-        <th>Wzrost</th>
-        <th>Akcje</th>
+        <th>Imię Superbohatera</th>
+        <th>Pełne Imię</th>
+        <th>Waga (kg)</th>
+        <th>Wzrost (cm)</th>
     </tr>
     </thead>
     <tbody>
-    @foreach (var bohater in Model)
+    @foreach (var hero in Model.Items)
     {
     <tr>
-        <td>@(bohater.superhero_name ?? "Brak nazwy")</td>
-        <td>@(bohater.full_name ?? "Brak pełnego imienia")</td>
-        <td>@(bohater.weight_kg ?? 0) kg</td>
-        <td>@(bohater.height_cm ?? 0) cm</td>
-        <td>
-            <a href="/Superheroes/Szczegoly/@bohater.Id">Szczegóły</a> |
-            <a href="/Superheroes/Usun/@bohater.Id">Usuń</a>
-        </td>
+        <td>@hero.superhero_name</td>
+        <td>@hero.full_name</td>
+        <td>@hero.weight_kg</td>
+        <td>@hero.height_cm</td>
     </tr>
     }
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        @if (Model.HasPreviousPage)
+        {
+        <li class="page-item">
+            <a class="page-link" asp-action="Lista" asp-route-page="@(Model.CurrentPage - 1)">Poprzednia</a>
+        </li>
+        }
+        else
+        {
+        <li class="page-item disabled">
+            <span class="page-link">Poprzednia</span>
+        </li>
+        }
+
+        <li class="page-item active">
+            <span class="page-link">@Model.CurrentPage</span>
+        </li>
+
+        @if (Model.HasNextPage)
+        {
+        <li class="page-item">
+            <a class="page-link" asp-action="Lista" asp-route-page="@(Model.CurrentPage + 1)">Następna</a>
+        </li>
+        }
+        else
+        {
+        <li class="page-item disabled">
+            <span class="page-link">Następna</span>
+        </li>
+        }
+    </ul>
+</nav>

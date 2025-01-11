@@ -14,6 +14,8 @@ namespace ASP.NET.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Superhero>().ToTable("superhero");
         }
     }

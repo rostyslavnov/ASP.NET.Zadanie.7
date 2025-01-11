@@ -14,9 +14,16 @@ namespace ASP.NET.Controllers
             _context = context;
         }
 
-        public IActionResult Lista()
+        public IActionResult Lista(int page = 1, int pageSize = 20)
         {
-            var superheroes = _context.Superheroes.ToList();
+            var totalItems = _context.Superheroes.Count();
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var superheroes = _context.Superheroes
+                .OrderBy(s => s.superhero_name)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
 
             foreach (var hero in superheroes)
             {
@@ -26,9 +33,15 @@ namespace ASP.NET.Controllers
                 hero.height_cm ??= 0;
             }
 
-            return View(superheroes);
-        }
+            var viewModel = new PaginationViewModel<Superhero>
+            {
+                Items = superheroes,
+                CurrentPage = page,
+                TotalPages = totalPages
+            };
 
+            return View(viewModel);
+        }
 
         public IActionResult Dodaj()
         {
