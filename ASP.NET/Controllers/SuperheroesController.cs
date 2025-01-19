@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ASP.NET.Data;
 using ASP.NET.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 
 namespace ASP.NET.Controllers
@@ -13,7 +14,7 @@ namespace ASP.NET.Controllers
         {
             _context = context;
         }
-        
+
         public IActionResult Lista(int page = 1, int pageSize = 20)
         {
             var totalItems = _context.Superheroes.Count();
@@ -42,7 +43,7 @@ namespace ASP.NET.Controllers
 
             return View(viewModel);
         }
-        
+
         public IActionResult Dodaj()
         {
             return View();
@@ -61,7 +62,7 @@ namespace ASP.NET.Controllers
 
             return View(superhero);
         }
-        
+
         public IActionResult Szczegoly(int id)
         {
             var superhero = _context.Superheroes.FirstOrDefault(s => s.Id == id);
@@ -70,7 +71,6 @@ namespace ASP.NET.Controllers
 
             return View(superhero);
         }
-        
 
         public IActionResult Edytuj(int id)
         {
@@ -80,7 +80,7 @@ namespace ASP.NET.Controllers
 
             return View(superhero);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edytuj(Superhero superhero)
@@ -101,6 +101,42 @@ namespace ASP.NET.Controllers
             }
 
             return View(superhero);
+        }
+        
+        public IActionResult DodajSuperheroWithPowers()
+        {
+            var model = new SuperheroViewModel
+            {
+                Superhero = new Superhero(),
+                Superpowers = _context.Superpowers
+                    .Select(sp => new SelectListItem { Value = sp.Id.ToString(), Text = sp.power_name })
+                    .ToList()
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DodajSuperheroWithPowers(SuperheroViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var superhero = model.Superhero;
+                superhero.Superpowers = _context.Superpowers
+                    .Where(sp => model.SelectedSuperpowerIds.Contains(sp.Id))
+                    .ToList();
+
+                _context.Superheroes.Add(superhero);
+                _context.SaveChanges();
+
+                return RedirectToAction(nameof(Lista));
+            }
+            
+            model.Superpowers = _context.Superpowers
+                .Select(sp => new SelectListItem { Value = sp.Id.ToString(), Text = sp.power_name })
+                .ToList();
+
+            return View(model);
         }
     }
 }

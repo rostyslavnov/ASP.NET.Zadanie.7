@@ -7,5 +7,7 @@
         public string? full_name { get; set; }
         public int? weight_kg { get; set; }
         public int? height_cm { get; set; }
+        
+        public ICollection<Superpower> Superpowers { get; set; }
     }
 }

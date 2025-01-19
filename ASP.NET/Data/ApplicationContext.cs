@@ -19,6 +19,10 @@ namespace ASP.NET.Data
 
             modelBuilder.Entity<Superhero>().ToTable("superhero");
             modelBuilder.Entity<Superpower>().ToTable("superpower");
+            modelBuilder.Entity<Superhero>()
+                .HasMany(s => s.Superpowers)
+                .WithMany(sp => sp.Superheroes)
+                .UsingEntity(j => j.ToTable("SuperheroSuperpowers"));
         }
     }
 }

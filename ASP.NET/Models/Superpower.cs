@@ -7,5 +7,7 @@ namespace ASP.NET.Models
         public int Id { get; set; }
         
         public string power_name { get; set; }
+        
+        public ICollection<Superhero> Superheroes { get; set; }
     }
 }
