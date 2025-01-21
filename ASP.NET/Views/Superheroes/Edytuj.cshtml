@@ -1,34 +1,39 @@
-﻿@model ASP.NET.Models.Superhero
+﻿@model Superhero
 
-@{
-    ViewData["Title"] = "Edytuj Superbohatera";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<h1>Edytuj Superbohatera</h1>
+<h2>Edytuj Superbohatera</h2>
 
 <form asp-action="Edytuj" method="post">
-    <div class="form-group">
-        <label asp-for="superhero_name"></label>
-        <input asp-for="superhero_name" class="form-control" />
-        <span asp-validation-for="superhero_name" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="full_name"></label>
-        <input asp-for="full_name" class="form-control" />
-        <span asp-validation-for="full_name" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="weight_kg"></label>
-        <input asp-for="weight_kg" class="form-control" />
-        <span asp-validation-for="weight_kg" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="height_cm"></label>
-        <input asp-for="height_cm" class="form-control" />
-        <span asp-validation-for="height_cm" class="text-danger"></span>
-    </div>
     <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label for="superhero_name">Imię Superbohatera:</label>
+        <input asp-for="superhero_name" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="full_name">Pełne Imię:</label>
+        <input asp-for="full_name" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="weight_kg">Waga (kg):</label>
+        <input asp-for="weight_kg" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="height_cm">Wzrost (cm):</label>
+        <input asp-for="height_cm" class="form-control" />
+    </div>
+
     <button type="submit" class="btn btn-primary">Zapisz</button>
-    <a asp-action="Lista" class="btn btn-secondary">Anuluj</a>
 </form>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="text-danger">
+        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}

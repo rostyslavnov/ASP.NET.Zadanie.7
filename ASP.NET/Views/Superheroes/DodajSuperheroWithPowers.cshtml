@@ -1,28 +1,27 @@
-﻿@model SuperheroViewModel  
+﻿@model SuperheroViewModel
 
-<h2>Dodaj Nowego Superbohatera</h2>  
+<h2>Dodaj Nowego Superbohatera</h2>
 
-<form asp-action="DodajSuperheroWithPowers" method="post">   
-    <div>   
-        <label for="superhero_name">Nazwa Superbohatera:</label>   
-        <input asp-for="Superhero.superhero_name" class="form-control" />   
-    </div>  
-    <div>   
-        <label for="full_name">Pełne Imię:</label>   
-        <input asp-for="Superhero.full_name" class="form-control" />   
-    </div>  
-    <div>   
-        <label for="weight_kg">Waga (kg):</label>   
-        <input asp-for="Superhero.weight_kg" class="form-control" />   
-    </div>  
-    <div>   
-        <label for="height_cm">Wzrost (cm):</label>   
-        <input asp-for="Superhero.height_cm" class="form-control" />   
-    </div>  
-    <div>   
-        <label>Supermoce</label>   
-        <select asp-for="SelectedSuperpowerIds" asp-items="Model.Superpowers" class="form-control" multiple="multiple"></select>   
-    </div>  
-
-    <button type="submit" class="btn btn-primary mt-3">Zapisz</button>  
+<form asp-action="DodajSuperheroWithPowers" method="post">
+    <div>
+        <label for="superhero_name">Nazwa Superbohatera:</label>
+        <input asp-for="Superhero.superhero_name" class="form-control" />
+    </div>
+    <div>
+        <label for="full_name">Pełne Imię:</label>
+        <input asp-for="Superhero.full_name" class="form-control" />
+    </div>
+    <div>
+        <label for="weight_kg">Waga (kg):</label>
+        <input asp-for="Superhero.weight_kg" class="form-control" />
+    </div>
+    <div>
+        <label for="height_cm">Wzrost (cm):</label>
+        <input asp-for="Superhero.height_cm" class="form-control" />
+    </div>
+    <div>
+        <label for="SelectedSuperpowerIds">Supermoce:</label>
+        <select asp-for="SelectedSuperpowerIds" asp-items="Model.Superpowers" multiple class="form-control"></select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Zapisz</button>
 </form>

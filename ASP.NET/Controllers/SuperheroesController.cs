@@ -43,6 +43,23 @@ namespace ASP.NET.Controllers
 
             return View(viewModel);
         }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Usun(int id)
+        {
+            var superhero = _context.Superheroes.FirstOrDefault(s => s.Id == id);
+            if (superhero == null)
+            {
+                return NotFound();
+            }
+
+            _context.Superheroes.Remove(superhero);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Lista));
+        }
+
 
         public IActionResult Dodaj()
         {
@@ -99,9 +116,10 @@ namespace ASP.NET.Controllers
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Lista));
             }
-
+            
             return View(superhero);
         }
+
         
         public IActionResult DodajSuperheroWithPowers()
         {
@@ -129,11 +147,12 @@ namespace ASP.NET.Controllers
                 _context.Superheroes.Add(superhero);
                 _context.SaveChanges();
 
-                return RedirectToAction(nameof(Lista));
+                return RedirectToAction("Lista", "Superheroes");
             }
             
             model.Superpowers = _context.Superpowers
-                .Select(sp => new SelectListItem { Value = sp.Id.ToString(), Text = sp.power_name })
+                .Select(sp => new SelectListItem { Value = sp.Id.ToString(), 
+                    Text = sp.power_name })
                 .ToList();
 
             return View(model);

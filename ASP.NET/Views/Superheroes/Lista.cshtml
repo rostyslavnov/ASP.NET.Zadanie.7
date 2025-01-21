@@ -32,6 +32,9 @@
                 <td>
                     <a asp-action="Szczegoly" asp-route-id="@hero.Id" class="btn btn-info">Szczegóły</a>
                     <a asp-action="Edytuj" asp-route-id="@hero.Id" class="btn btn-warning">Edytuj</a>
+                    <form asp-action="Usun" asp-route-id="@hero.Id" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger">Usuń</button>
+                    </form>
                 </td>
             </tr>
         }
