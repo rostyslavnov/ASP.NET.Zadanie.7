@@ -1,23 +1,27 @@
-﻿@model Superhero
+﻿@model ASP.NET.Models.Superhero
 
 <h2>Dodaj Nowego Superbohatera</h2>
 
 <form asp-action="Dodaj" method="post">
     <div>
-        <label for="superhero_name">Nazwa Superbohatera:</label>
+        <label asp-for="superhero_name">Nazwa Superbohatera:</label>
         <input asp-for="superhero_name" class="form-control" />
+        <span asp-validation-for="superhero_name" class="text-danger"></span>
     </div>
     <div>
-        <label for="full_name">Pełne Imię:</label>
+        <label asp-for="full_name">Pełne Imię:</label>
         <input asp-for="full_name" class="form-control" />
+        <span asp-validation-for="full_name" class="text-danger"></span>
     </div>
     <div>
-        <label for="weight_kg">Waga (kg):</label>
-        <input asp-for="weight_kg" class="form-control" />
+        <label asp-for="weight_kg">Waga (kg):</label>
+        <input asp-for="weight_kg" class="form-control" />Ф
+        <span asp-validation-for="weight_kg" class="text-danger"></span>
     </div>
     <div>
-        <label for="height_cm">Wzrost (cm):</label>
+        <label asp-for="height_cm">Wzrost (cm):</label>
         <input asp-for="height_cm" class="form-control" />
+        <span asp-validation-for="height_cm" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary mt-3">Zapisz</button>
 </form>

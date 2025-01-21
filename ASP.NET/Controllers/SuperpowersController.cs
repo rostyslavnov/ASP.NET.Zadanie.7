@@ -68,24 +68,23 @@ namespace ASP.NET.Controllers
         }
 
 
+        [HttpGet]
         public IActionResult Dodaj()
         {
             return View();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Dodaj(Superpower superpower)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Superpowers.Add(superpower);
-                _context.SaveChanges();
-                return RedirectToAction(nameof(Lista));
-            }
-
-            return View(superpower);
+            _context.Superpowers.Add(superpower);
+            
+            _context.SaveChanges();
+            
+            return RedirectToAction(nameof(Lista));
         }
+
+
 
         public IActionResult Szczegoly(int id)
         {

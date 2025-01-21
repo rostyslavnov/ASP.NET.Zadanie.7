@@ -1,0 +1,13 @@
+﻿@model ASP.NET.Models.Superpower
+
+<h2>Dodaj Nową Supermoc</h2>
+
+<form asp-action="Dodaj" method="post">
+    <div class="form-group">
+        <label for="power_name">Nazwa Supermocy:</label>
+        <input asp-for="power_name" class="form-control" />
+        <span asp-validation-for="power_name" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">Zapisz</button>
+</form>

@@ -70,14 +70,10 @@ namespace ASP.NET.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Dodaj(Superhero superhero)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Superheroes.Add(superhero);
-                _context.SaveChanges();
-                return RedirectToAction(nameof(Lista));
-            }
+            _context.Superheroes.Add(superhero);
+            _context.SaveChanges();
 
-            return View(superhero);
+            return RedirectToAction(nameof(Lista));
         }
 
         public IActionResult Szczegoly(int id)
@@ -114,7 +110,7 @@ namespace ASP.NET.Controllers
                 existingHero.height_cm = superhero.height_cm;
 
                 _context.SaveChanges();
-                return RedirectToAction(nameof(Lista));
+                return RedirectToAction("Lista", "Superheroes");
             }
             
             return View(superhero);
@@ -137,25 +133,17 @@ namespace ASP.NET.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DodajSuperheroWithPowers(SuperheroViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var superhero = model.Superhero;
-                superhero.Superpowers = _context.Superpowers
-                    .Where(sp => model.SelectedSuperpowerIds.Contains(sp.Id))
-                    .ToList();
-
-                _context.Superheroes.Add(superhero);
-                _context.SaveChanges();
-
-                return RedirectToAction("Lista", "Superheroes");
-            }
             
-            model.Superpowers = _context.Superpowers
-                .Select(sp => new SelectListItem { Value = sp.Id.ToString(), 
-                    Text = sp.power_name })
+            var superhero = model.Superhero;
+            superhero.Superpowers = _context.Superpowers
+                .Where(sp => model.SelectedSuperpowerIds.Contains(sp.Id))
                 .ToList();
 
-            return View(model);
+            _context.Superheroes.Add(superhero);
+            _context.SaveChanges();
+
+            return RedirectToAction("Lista", "Superheroes");
         }
+
     }
 }
